@@ -77,6 +77,23 @@ public class TeacherScheduleApp {
          System.out.print("Invalid input . Please enter a valid number." + e.getMessage());
       }
    }
+
+   /* check exist time slot , subject , day , for each teacher ofter generate schedule */
+   public static boolean checkSessionExist(List<Teacher> teachers,Session session) {
+      for (Teacher teacher:teachers){
+        for (Session checked: teacher.getSchedule()){
+            if(checked.getSubject().getName().contains(session.getSubject().getName())
+                    && checked.getDay().equalsIgnoreCase(session.getDay())
+                    && checked.getStartTime() == session.getStartTime()
+                    && checked.getEndTime() == session.getEndTime()
+                    && checked.getClassName().equalsIgnoreCase(session.getClassName())){
+               return true;
+
+            }
+        }
+      }
+      return false;
+  }
    /** DISPLAY ALL ABOUT INFO OF EACH TEACHER LIKE SUBJECT,CLASS NAME */
    public static void displayTeacher() {
       System.out.println("List of Teachers:\n");
@@ -135,8 +152,10 @@ public class TeacherScheduleApp {
                      String className = scanner.next();
                      if (teacher.getClaSs().contains(className)) {
                         Session session = new Session(subject, day, startTime, endTime, className);
-                        teacher.addToSchedule(session, className);
-                        System.out.println("Schedule added successfully!\n");
+                        if(!(checkSessionExist(teachers,session))){
+                           teacher.addToSchedule(new Session(subject, day, startTime, endTime, className), className);
+                           System.out.println("Schedule added successfully!\n");
+                        }else System.out.println("Cannot add because session already exist with another teacher!");
                      } else {
                         System.out.println("Invalid class for this teacher or class not found!\n");
                      }

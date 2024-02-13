@@ -12,7 +12,6 @@ public class Session {
       this.endTime = endTime;
       this.className = className;
    }
-
    public String getClassName() {
       return className;
    }

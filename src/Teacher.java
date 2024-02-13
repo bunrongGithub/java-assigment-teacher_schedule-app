@@ -7,7 +7,9 @@ public class Teacher {
    private List<Session> schedule;
    private List<String> claSs;
 
-   public Teacher(){}
+   public Teacher() {
+   }
+
    public Teacher(String name) {
       this.name = name;
       this.subjects = new ArrayList<>();
@@ -43,5 +45,4 @@ public class Teacher {
       session.setClassName(className);
       schedule.add(session);
    }
-
 }
